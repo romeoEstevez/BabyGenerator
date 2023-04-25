@@ -1,0 +1,42 @@
+// Import the OpenAI API library.
+const openai = require("openai");
+
+// Get your API key from the OpenAI website.
+const apiKey = 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;
+
+// Create a new OpenAI API client.
+const client = new openai(apiKey);
+
+// Create a function that will generate text using the OpenAI API.
+const generateText = async (prompt) => {
+  // Make a request to the OpenAI API.
+  const response = await client.completions.create(
+    {
+      prompt,
+      temperature: 0.7,
+      max_tokens: 100,
+      no_repeat_ngram_size: 3,
+      presence_penalty: 0.2,
+      stop_token: "</s>",
+    }
+  );
+
+  // Get the generated text.
+  const text = response.choices[0].text;
+
+  // Return the generated text.
+  return text;
+};
+
+// Add a button to your website that will call the generateText function.
+const button = document.getElementById("generate-text");
+button.addEventListener("click", async () => {
+  // Get the text that the user entered.
+  const prompt = document.getElementById("prompt").value;
+
+  // Generate text using the OpenAI API.
+  const generatedText = await generateText(prompt);
+
+  // Display the generated text on the website.
+  document.getElementById("generated-text").innerHTML = generatedText;
+});
