@@ -1,42 +1,57 @@
-// Import the OpenAI API library.
-const openai = require("openai");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Website</title>
+</head>
+<body>
+  <h1>My Website</h1>
+  <p>This is my website.</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openai-api/0.1.1/openai.js"></script>
+  <script>
+    // Import the OpenAI API library.
+    const openai = require("openai");
 
-// Get your API key from the OpenAI website.
-const apiKey = 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;
+    // Get your API key from the OpenAI website.
+    const apiKey = "YOUR_API_KEY";
 
-// Create a new OpenAI API client.
-const client = new openai(apiKey);
+    // Create a new OpenAI API client.
+    const client = new openai(apiKey);
 
-// Create a function that will generate text using the OpenAI API.
-const generateText = async (prompt) => {
-  // Make a request to the OpenAI API.
-  const response = await client.completions.create(
-    {
-      prompt,
-      temperature: 0.7,
-      max_tokens: 100,
-      no_repeat_ngram_size: 3,
-      presence_penalty: 0.2,
-      stop_token: "</s>",
-    }
-  );
+    // Create a function that will generate text using the OpenAI API.
+    const generateText = async (prompt) => {
+      // Make a request to the OpenAI API.
+      const response = await client.completions.create(
+        {
+          prompt,
+          temperature: 0.7,
+          max_tokens: 100,
+          no_repeat_ngram_size: 3,
+          presence_penalty: 0.2,
+          stop_token: "</s>",
+        }
+      );
 
-  // Get the generated text.
-  const text = response.choices[0].text;
+      // Get the generated text.
+      const text = response.choices[0].text;
 
-  // Return the generated text.
-  return text;
-};
+      // Return the generated text.
+      return text;
+    };
 
-// Add a button to your website that will call the generateText function.
-const button = document.getElementById("generate-text");
-button.addEventListener("click", async () => {
-  // Get the text that the user entered.
-  const prompt = document.getElementById("prompt").value;
+    // Add a button to your website that will call the generateText function.
+    const button = document.getElementById("generate-text");
+    button.addEventListener("click", async () => {
+      // Get the text that the user entered.
+      const prompt = document.getElementById("prompt").value;
 
-  // Generate text using the OpenAI API.
-  const generatedText = await generateText(prompt);
+      // Generate text using the OpenAI API.
+      const generatedText = await generateText(prompt);
 
-  // Display the generated text on the website.
-  document.getElementById("generated-text").innerHTML = generatedText;
-});
+      // Display the generated text on the website.
+      document.getElementById("generated-text").innerHTML = generatedText;
+    });
+  </script>
+</body>
+</html>
