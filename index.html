@@ -12,6 +12,7 @@
   <button id="generate-name">Generate Name</button>
   <div id="generated-text"></div>
   <div id="generated-name"></div>
+  <div id="generated-answers"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/openai-api/0.1.1/openai.js"></script>
   <script>
     // Import the OpenAI API library.
@@ -85,6 +86,26 @@
       // Display the generated name on the website.
       document.getElementById("generated-name").innerHTML = name;
     });
+
+    // Add an event listener to the generate-answers button.
+    document.getElementById("generate-answers").addEventListener("click", async () => {
+      // Get the text that the user entered.
+      const prompt = document.getElementById("prompt").value;
+
+      // Generate answers using the OpenAI API.
+      const answers = await client.answers.create(
+        {
+          prompt,
+          temperature: 0.7,
+          max_tokens: 100,
+          no_repeat_ngram_size: 3,
+          presence_penalty: 0.2,
+          stop_token: "</s>",
+        }
+      );
+
+      // Display the generated answers on the website.
+      document.getElementById("generated-answers").innerHTML = answers.choices[0].text;
+    });
   </script>
-</body>
-</html>
+</body
