@@ -52,6 +52,37 @@
       // Display the generated text on the website.
       document.getElementById("generated-text").innerHTML = generatedText;
     });
+
+    // Add a button to your website that will call the randomNameGenerator function.
+    const button = document.getElementById("generate-name");
+    button.addEventListener("click", async () => {
+      // Generate a random name using the OpenAI API.
+      const name = await generateRandomName();
+
+      // Display the generated name on the website.
+      document.getElementById("generated-name").innerHTML = name;
+    });
+
+    // Create a function that will generate a random name using the OpenAI API.
+    const generateRandomName = async () => {
+      // Make a request to the OpenAI API.
+      const response = await client.completions.create(
+        {
+          prompt: "Generate a random name.",
+          temperature: 0.7,
+          max_tokens: 100,
+          no_repeat_ngram_size: 3,
+          presence_penalty: 0.2,
+          stop_token: "</s>",
+        }
+      );
+
+      // Get the generated name.
+      const name = response.choices[0].text;
+
+      // Return the generated name.
+      return name;
+    };
   </script>
 </body>
 </html>
