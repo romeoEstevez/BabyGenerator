@@ -6,8 +6,12 @@
   <title>My Website</title>
 </head>
 <body>
-  <h1>My Website2</h1>
+  <h1>My Website</h1>
   <p>This is my website.</p>
+  <button id="generate-text">Generate Text</button>
+  <button id="generate-name">Generate Name</button>
+  <div id="generated-text"></div>
+  <div id="generated-name"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/openai-api/0.1.1/openai.js"></script>
   <script>
     // Import the OpenAI API library.
@@ -40,29 +44,6 @@
       return text;
     };
 
-    // Add a button to your website that will call the generateText function.
-    const button = document.getElementById("generate-text");
-    button.addEventListener("click", async () => {
-      // Get the text that the user entered.
-      const prompt = document.getElementById("prompt").value;
-
-      // Generate text using the OpenAI API.
-      const generatedText = await generateText(prompt);
-
-      // Display the generated text on the website.
-      document.getElementById("generated-text").innerHTML = generatedText;
-    });
-
-    // Add a button to your website that will call the randomNameGenerator function.
-    const button = document.getElementById("generate-name");
-    button.addEventListener("click", async () => {
-      // Generate a random name using the OpenAI API.
-      const name = await generateRandomName();
-
-      // Display the generated name on the website.
-      document.getElementById("generated-name").innerHTML = name;
-    });
-
     // Create a function that will generate a random name using the OpenAI API.
     const generateRandomName = async () => {
       // Make a request to the OpenAI API.
@@ -83,6 +64,27 @@
       // Return the generated name.
       return name;
     };
+
+    // Add an event listener to the generate-text button.
+    document.getElementById("generate-text").addEventListener("click", async () => {
+      // Get the text that the user entered.
+      const prompt = document.getElementById("prompt").value;
+
+      // Generate text using the OpenAI API.
+      const generatedText = await generateText(prompt);
+
+      // Display the generated text on the website.
+      document.getElementById("generated-text").innerHTML = generatedText;
+    });
+
+    // Add an event listener to the generate-name button.
+    document.getElementById("generate-name").addEventListener("click", async () => {
+      // Generate a random name using the OpenAI API.
+      const name = await generateRandomName();
+
+      // Display the generated name on the website.
+      document.getElementById("generated-name").innerHTML = name;
+    });
   </script>
 </body>
 </html>
